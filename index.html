@@ -12,6 +12,83 @@
     <script src="assets/ember-1.3.1.js"></script>
 </head>
 <body>
+    <script type="text/x-handlebars" >
+        <div class="row">
+            <h1>Hypoteční kalkulačka</h1>
+            {{outlet}}
+        </div>
+    </script>
+
+    <script type="text/x-handlebars" id="index">
+        <div class="columns medium-6" >
+            <label>Výše půjčky</label>
+            {{number step="100000"  value=data.loanprice}}
+            <label>Splatnost</label>
+            {{number step="5" value=data.duedate}}
+        </div>
+        <div class="columns medium-6" >
+            <label>Vaše hypotéka</label>
+            {{#each errors}}
+                <div class="panel" >{{this}}</div>
+            {{else}}
+                {{#if result}}
+                    <div class="panel" >
+                        <h2>{{result.repayment}} Kč <small>měsíčně</small></h2>
+                        úroková sazba od {{result.interest}} %
+                    </div>
+                {{/if}}
+            {{/each}}
+        </div>
+    </script>
+
+    <script>
+        App = Ember.Application.create();
+
+        App.IndexController = Ember.Controller.extend({
+
+            data: {
+                price: 1000000,
+                loan: 100,
+                loanprice: 1000000,
+                duedate: 30,
+                fixation: 5
+            },
+
+            result: null,
+
+            init: function() {
+                this.calculate();
+            },
+
+            calculate: function() {
+                var self = this;
+                if (this.validate()) {
+                    $.ajax('https://www.csast.csas.cz/webapi/api/v1/hc/hypocalc', {
+                        data: self.data,
+                        headers: {'WEB-API-Key': '2024d844-bf88-4cf0-b9ca-73f5de393f92'},
+                        success: function (res) {
+                            self.set('result', res.results[0]);
+                        }
+                    })
+                } else {
+                    this.set('result', null);
+                }
+            }.observes('data.duedate','data.loanprice'),
+
+            validate: function() {
+                var data = this.data;
+                var err = [];
+                if (data.duedate < 5 || data.duedate > 30) {
+                    err.push('Splatnost musí být 5 až 30 let');
+                }
+                if (data.loanprice < 500000) {
+                    err.push('Minimální půjčka je 500 000 Kč.');
+                }
+                this.set('errors', err);
+                return err.length === 0;
+            }
+        })
+    </script>
 
 </body>
 </html>
