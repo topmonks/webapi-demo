@@ -1,0 +1,8 @@
+target/
+tmp/
+.idea/
+.DS_Store
+*.iml
+*~
+Thumbs.db
+*.key

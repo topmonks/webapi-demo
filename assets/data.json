@@ -1,0 +1,28 @@
+{
+    "results": [
+        {
+            "headline": "Vysledek 1",
+            "price": 1000000,
+            "loan": 70,
+            "loanprice": 700000,
+            "interest": "3.09",
+            "repayment": 2985
+        },
+        {
+            "headline": "Vysledek 2",
+            "price": 1000000,
+            "loan": 85,
+            "loanprice": 850000,
+            "interest": "3.29",
+            "repayment": 3718
+        },
+        {
+            "headline": "Vysledek 3",
+            "price": 1000000,
+            "loan": 100,
+            "loanprice": 1000000,
+            "interest": "4.29",
+            "repayment": 4943
+        }
+    ]
+}

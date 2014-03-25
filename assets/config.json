@@ -1,0 +1,5 @@
+{
+    "duedateMin": 5,
+    "duedateMax": 30,
+    "fixationSteps": [1,2,3,4,5,10]
+}
