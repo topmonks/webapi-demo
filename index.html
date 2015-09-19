@@ -63,9 +63,9 @@
             calculate: function() {
                 var self = this;
                 if (this.validate()) {
-                    $.ajax('https://www.csast.csas.cz/webapi/api/v1/hc/hypocalc', {
+                    $.ajax('https://api.csas.cz/sandbox/webapi/api/v1/hc/hypocalc', {
                         data: self.data,
-                        headers: {'WEB-API-Key': '2024d844-bf88-4cf0-b9ca-73f5de393f92'},
+                        headers: {'WEB-API-Key': 'e1c9a88d-c0a2-470d-a1f9-52d2a8f974ed'},
                         success: function (res) {
                             self.set('result', res.results[0]);
                         }
